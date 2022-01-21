@@ -1,0 +1,57 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@if(TempData["Referrer"]?.ToString() == "SaveRegister")
+{
+    <div class="alert alert-success">
+      <strong>Your data has been captured successfully</strong>
+    </div>
+}
+<div class="row">
+    <div class="col-md-10" border=1>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">              
+               <label class="control-label">1. Do you have any prior AWS project experience ?</label>
+               
+                 @foreach(var item in Model.AWSExperience)
+                 {
+            <label>
+                &nbsp;&nbsp;<input  asp-for="SurveyBO.AWSProjectExperience" type="radio" value="@item" checked="@(item == Model.AWSExperience.FirstOrDefault() ? "checked" : null)" /> @item
+            </label>
+                 }
+
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">2. Which courses internal/external did you refer to prepare for this certificate? </label>
+                <textarea asp-for="SurveyBO.ReferalCourse" class="form-control" >@Model.SurveyBO.ReferalCourse</textarea>
+                <span asp-validation-for="SurveyBO.ReferalCourse" class="text-danger"></span>
+            </div>
+            <br />
+           <div class="form-group">
+                <label class="control-label">3. Which trainings internal/external did you attend for certification ?</label>
+                <textarea asp-for="SurveyBO.Training" class="form-control">@Model.SurveyBO.Training</textarea> 
+                <span asp-validation-for="SurveyBO.Training" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="SurveyBO.Rating" class="control-label">4. How much helpful was internal certification in clearing external certifications.Please rate on the scale of 1-5 (1-Low ,5-Highest) ?</label>
+                <input asp-for="SurveyBO.Rating"/>
+                <span asp-validation-for="SurveyBO.Rating" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">5. How many hours did you spend to prepare for the exam ?</label>
+                <input asp-for="SurveyBO.Hours"  /> Hours
+                <span asp-validation-for="SurveyBO.Hours" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
